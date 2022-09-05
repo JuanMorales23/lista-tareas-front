@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import FormList from "./components/FormList";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import TaskList from "./components/TaskList";
+import DoneList from "./components/DoneList";
+import PostponedList from "./components/PostponedList";
+import RefuseList from "./components/RefuseList";
 
 function App() {
+  const url = "http://localhost:8080/";
+
+  const [task, setTask] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [state, setState] = useState("");
+
+  const getDates = () => {
+    axios.get(url).then(({ data }) => setTask(data));
+  };
+
+  useEffect(() => {
+    getDates();
+  }, [task]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>App Lista de tareas</h1>
+      <FormList
+        setTask={setTask}
+        name={name}
+        description={description}
+        state={state}
+      />
+      <div class="row ">
+        <TaskList
+          task={task}
+          
+        />
+        <DoneList />
+        <PostponedList />
+        <RefuseList />
+      </div>
     </div>
   );
 }
