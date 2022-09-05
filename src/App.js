@@ -10,11 +10,7 @@ import RefuseList from "./components/RefuseList";
 
 function App() {
   const url = "http://localhost:8080/";
-
   const [task, setTask] = useState([]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [state, setState] = useState("");
 
   const getDates = () => {
     axios.get(url).then(({ data }) => setTask(data));
@@ -27,12 +23,7 @@ function App() {
   return (
     <div className="App">
       <h1>App Lista de tareas</h1>
-      <FormList
-        setTask={setTask}
-        name={name}
-        description={description}
-        state={state}
-      />
+      <FormList />
       <div class="row ">
         <TaskList
           task={task}

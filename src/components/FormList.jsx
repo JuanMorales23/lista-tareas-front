@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from 'axios';
 
-const FormList = ({ setTask, name, description, state }) => {
+const FormList = () => {
   const url = "http://localhost:8080/"
   const [form, setForm] = useState({name:"", description: "", state: ""});
 
@@ -26,7 +26,7 @@ const FormList = ({ setTask, name, description, state }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container form">
       <div className="row justify-content-center">
         <div className="col col-md-7">
         <Form onSubmit={handleSubmit}>
@@ -46,7 +46,7 @@ const FormList = ({ setTask, name, description, state }) => {
             <Form.Label>Descripción de la tarea:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={description === "" ? "Descripción": description}
+              placeholder="Descripción"
               name="description"
               value={form.description}
               onChange={(e) => {

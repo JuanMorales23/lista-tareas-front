@@ -10,8 +10,15 @@ const ModifyTask = ({showModal, handleCloseModal, body}) => {
       setForm({ ...form, [e.target.name]: e.target.value});
     };
 
-    const updateDates = () =>{
+    const handleSubmit = (e) => {
+      if(!form.name || !form.description){
+        alert("Datos incompletos");
+        e.preventDefault();
+      }else{
+        e.preventDefault();
         axios.put(`${url}/${body.id}`, form)
+        handleCloseModal();
+      }
     }
 
     useEffect(() => {
@@ -26,7 +33,7 @@ const ModifyTask = ({showModal, handleCloseModal, body}) => {
           <Modal.Title>Modificar Tarea</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Nombre de la tarea:</Form.Label>
             <Form.Control
@@ -51,10 +58,7 @@ const ModifyTask = ({showModal, handleCloseModal, body}) => {
               }}
             />
           </Form.Group>
-          <Button variant="success" onClick={() => {
-            updateDates(); 
-            handleCloseModal();
-            }}>
+          <Button variant="success" type="submit">
             Aceptar
           </Button>
           <Button variant="primary" onClick={handleCloseModal}>
